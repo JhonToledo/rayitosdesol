@@ -394,6 +394,11 @@ body { font-family: var(--font-body); color: var(--text); background: var(--ligh
     display: flex; justify-content: center; margin-bottom: 1.5rem;
   }
   .hero-logo-mobile img { width: 160px; height: 160px; object-fit: contain; }
+  /* Fix blobs showing behind other sections on mobile */
+  .hero-bg { position: absolute; }
+  .hero { overflow: hidden; }
+  /* Fix precio CTA button on mobile */
+  .precio-cta { width: 100%; text-align: center; margin-left: 0; margin-top: 0.5rem; }
 }
 @media (min-width: 901px) {
   .hero-logo-mobile { display: none; }
