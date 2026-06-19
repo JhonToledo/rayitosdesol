@@ -122,7 +122,7 @@ body { font-family: var(--font-body); color: var(--text); background: var(--ligh
 .stat-num { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--purple); line-height: 1; }
 .stat span:last-child { font-size: .82rem; color: #6B5A8A; font-weight: 700; }
 
-.hero-visual { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; min-height: 450px; }
+.hero-visual { flex: 1; max-width: 600px; display: flex; align-items: center; justify-content: center; position: relative; min-height: 450px; }
 .hero-sun { position: absolute; width: 260px; height: 260px; display: flex; align-items: center; justify-content: center; }
 .sun-circle {
   width: 200px; height: 200px; border-radius: 50%;
