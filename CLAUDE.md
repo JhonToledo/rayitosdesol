@@ -105,3 +105,4 @@ SSL: modo **Flexible** (Cloudflare → Railway).
 | 2026-06-19 | Fix mobile: hero-bg cambiado a `position: absolute` en pantallas ≤900px para evitar que los blobs se filtren detrás de otras secciones |
 | 2026-06-19 | Fix precio CTA: botón centrado en mobile |
 | 2026-06-19 | DNS Cloudflare configurado: CNAME @ → Railway, CNAME www → dominio raíz |
+| 2026-06-19 | Puerto de desarrollo local cambiado de 5000 a 5001 |
