@@ -46,9 +46,11 @@ form.addEventListener('submit', async (e) => {
       success.classList.add('show');
       form.reset();
     } else {
+      errorDiv.textContent = data.error || 'Error al enviar. Inténtalo de nuevo.';
       errorDiv.classList.add('show');
     }
   } catch (err) {
+    errorDiv.textContent = 'No se pudo conectar con el servidor.';
     errorDiv.classList.add('show');
   } finally {
     btn.textContent = 'Solicitar información ✉️';

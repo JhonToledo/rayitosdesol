@@ -200,7 +200,7 @@ def contacto():
         msg['To']      = c['contacto']['email_destino']
         msg.attach(MIMEText(html, 'html'))
 
-        with smtplib.SMTP(c['email']['smtp_server'], int(c['email']['smtp_port'])) as server:
+        with smtplib.SMTP(c['email']['smtp_server'], int(c['email']['smtp_port']), timeout=15) as server:
             server.starttls()
             email_pass = os.environ.get('EMAIL_PASSWORD') or c['email']['email_password']
             server.login(c['email']['email_remitente'], email_pass)
@@ -209,7 +209,7 @@ def contacto():
         return jsonify({'ok': True})
     except Exception as e:
         print(f"Error email: {e}")
-        return jsonify({'ok': False, 'error': str(e)}), 500
+        return jsonify({'ok': False, 'error': str(e)}), 200
 
 
 # ── ADMIN: AUTH ──
