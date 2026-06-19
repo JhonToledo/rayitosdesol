@@ -13,9 +13,12 @@
   {% endif %}
   <style>
     .pub-banner {
-      padding: 10px 20px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1001;
+      padding: 8px 20px;
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       display: flex;
       align-items: center;
@@ -426,6 +429,22 @@
   </footer>
 
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% if c.publicidad.activa %}
+  <script>
+    (function() {
+      var banner = document.querySelector('.pub-banner');
+      var navbar = document.querySelector('.navbar');
+      if (!banner || !navbar) return;
+      function adjustNav() {
+        var h = banner.offsetHeight;
+        navbar.style.top = h + 'px';
+        document.body.style.paddingTop = (h + navbar.offsetHeight) + 'px';
+      }
+      adjustNav();
+      window.addEventListener('resize', adjustNav);
+    })();
+  </script>
+  {% endif %}
 
   {% if is_admin %}
   <script>window.SITE_CONTENT = {{ c | tojson }};</script>
