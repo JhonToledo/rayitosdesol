@@ -107,3 +107,4 @@ SSL: modo **Flexible** (Cloudflare → Railway).
 | 2026-06-19 | DNS Cloudflare configurado: CNAME @ → Railway, CNAME www → dominio raíz |
 | 2026-06-19 | Puerto de desarrollo local cambiado de 5000 a 5001 |
 | 2026-06-19 | Fix banner publicidad: `position: fixed; z-index: 999` (debajo del navbar), CSS variable `--pub-h` ajusta navbar y hero automáticamente vía JS |
+| 2026-06-19 | Fix mobile overflow: `overflow-x: hidden` en html, hero `max-width: 100%`, blobs del hero contenidos |
