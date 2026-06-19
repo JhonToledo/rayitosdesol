@@ -1,0 +1,112 @@
+{
+  "admin": {
+    "password_hash": ""
+  },
+  "hero": {
+    "badge": "🎒 Matrículas Abiertas · Periodo 2026–2027",
+    "title_line1": "Centro de Desarrollo",
+    "title_highlight": "Infantil Rayitos de Sol",
+    "subtitle": "Educación inicial de calidad con amor, juego y dedicación. Niños desde 1 año y medio hasta 4 años de edad. Horario extendido de 8 a.m. a 5 p.m.",
+    "stats": [
+      {"num": "+1567", "label": "Seguidores"},
+      {"num": "8am–5pm", "label": "Horario extendido"},
+      {"num": "2 Sedes", "label": "Naranjito & Milagro"}
+    ]
+  },
+  "precios": {
+    "matricula": "$50",
+    "mensualidad": "$150",
+    "horario": "8am - 5pm",
+    "inicio": "4 Mayo 2026"
+  },
+  "nosotros": {
+    "text1": "Somos un Centro de Desarrollo Infantil comprometido con la educación inicial de calidad. Atendemos a niños desde 1 año y medio hasta 4 años de edad, brindando un ambiente seguro, cálido y estimulante donde cada pequeño puede desarrollar todo su potencial.",
+    "text2": "Nuestro equipo de docentes especializadas trabajan con metodologías activas, juego y amor incondicional, creando experiencias de aprendizaje únicas y memorables para cada niño.",
+    "checks": [
+      "Niños desde 1 año y medio hasta 4 años",
+      "Horario extendido: 8 a.m. – 5 p.m.",
+      "Docentes tituladas y especializadas",
+      "Dos sedes: Naranjito y Milagro",
+      "Aula de la Diversidad para atención personalizada"
+    ]
+  },
+  "programas": [
+    {
+      "icon": "👶",
+      "nombre": "Beginners",
+      "edad": "1 año y medio – 2 años",
+      "descripcion": "Estimulación temprana, vínculo afectivo, exploración sensorial y primeras rutinas.",
+      "bullets": ["Estimulación multisensorial", "Juegos sensoriales", "Desarrollo del lenguaje"],
+      "color": "#FFC947"
+    },
+    {
+      "icon": "🌱",
+      "nombre": "Inicial 1",
+      "edad": "2 – 3 años",
+      "descripcion": "Autonomía, socialización con pares y primeras experiencias de aprendizaje estructurado.",
+      "bullets": ["Motricidad fina y gruesa", "Habilidades sociales", "Estimulación artística"],
+      "color": "#FF6B9D"
+    },
+    {
+      "icon": "🎒",
+      "nombre": "Inicial 2",
+      "edad": "3 – 4 años",
+      "descripcion": "Pre-lectura, pre-escritura, razonamiento lógico e inteligencia emocional.",
+      "bullets": ["Inglés básico", "Pre-lectura y escritura", "Inteligencia emocional"],
+      "color": "#4CAF7D"
+    },
+    {
+      "icon": "🌈",
+      "nombre": "Aula de la Diversidad",
+      "edad": "Atención personalizada",
+      "descripcion": "Programa especializado para niños que necesitan apoyo adicional en su desarrollo.",
+      "bullets": ["Atención individualizada", "Apoyo en concentración", "Habilidades sociales"],
+      "color": "#8B5CF6"
+    }
+  ],
+  "servicios": [
+    {"icon": "🧠", "nombre": "Estimulación del lenguaje", "descripcion": "Actividades para potenciar la comunicación verbal y no verbal desde temprana edad."},
+    {"icon": "🇬🇧", "nombre": "Inglés para niños", "descripcion": "Introducción al idioma inglés a través de canciones, juegos y actividades interactivas."},
+    {"icon": "✏️", "nombre": "Refuerzos y tareas dirigidas", "descripcion": "Acompañamiento académico para que tus peques comprendan y cumplan sus tareas con éxito."},
+    {"icon": "🎨", "nombre": "Estimulación artística", "descripcion": "Arte, pintura, música y movimiento para desarrollar la creatividad y la expresión."},
+    {"icon": "🤸", "nombre": "Motricidad fina y gruesa", "descripcion": "Actividades físicas y manuales que desarrollan la coordinación y el control corporal."},
+    {"icon": "💛", "nombre": "Inteligencia emocional", "descripcion": "Herramientas para que los niños identifiquen y gestionen sus emociones desde pequeños."}
+  ],
+  "galeria": [
+    "img/galeria/best/foto_04_03.jpg",
+    "img/galeria/best/foto_06_02.jpg",
+    "img/galeria/best/foto_03_03.jpg",
+    "img/galeria/best/foto_07_09.jpg",
+    "img/galeria/best/foto_05_08.jpg",
+    "img/galeria/best/foto_04_07.jpg",
+    "img/galeria/best/foto_05_03.jpg",
+    "img/galeria/best/foto_06_08.jpg",
+    "img/galeria/best/foto_06_00.jpg",
+    "img/galeria/best/foto_02_09.jpg",
+    "img/galeria/best/foto_05_09.jpg"
+  ],
+  "publicidad": {
+    "activa": true,
+    "titulo": "¡Oferta especial!",
+    "texto": "Inscríbete ahora y obtén un descuento en la matrícula.",
+    "link": "",
+    "color_fondo": "#6b2fa0",
+    "color_texto": "#ffffff"
+  },
+  "contacto": {
+    "sede_matriz": "Km 1, Vía Naranjito",
+    "sede_milagro": "Amazonas y PJ Montero",
+    "telefono": "0985974060",
+    "horario": "Lunes a Viernes: 8:00 a.m. – 5:00 p.m.",
+    "inicio_clases": "4 de Mayo 2026 · ¡Cupos limitados!",
+    "instagram": "https://www.instagram.com/rayitosdesol_ec",
+    "whatsapp": "https://wa.me/message/JCWB3R5FPJGKK1",
+    "email_destino": "Cp.rayitosdesol18@gmail.com"
+  },
+  "email": {
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "email_remitente": "Cp.rayitosdesol18@gmail.com",
+    "email_password": ""
+  }
+}

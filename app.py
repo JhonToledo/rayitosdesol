@@ -28,6 +28,11 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXT
 
 def load_content():
+    if not os.path.exists(CONTENT_FILE):
+        default = os.path.join(BASE_DIR, 'content_default.json')
+        with open(default, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        save_content(data)
     with open(CONTENT_FILE, 'r', encoding='utf-8') as f:
         return json.load(f)
 
@@ -197,7 +202,8 @@ def contacto():
 
         with smtplib.SMTP(c['email']['smtp_server'], int(c['email']['smtp_port'])) as server:
             server.starttls()
-            server.login(c['email']['email_remitente'], c['email']['email_password'])
+            email_pass = os.environ.get('EMAIL_PASSWORD') or c['email']['email_password']
+            server.login(c['email']['email_remitente'], email_pass)
             server.sendmail(c['email']['email_remitente'], c['contacto']['email_destino'], msg.as_string())
 
         return jsonify({'ok': True})
