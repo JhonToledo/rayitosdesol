@@ -12,10 +12,11 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/editor.css') }}"/>
   {% endif %}
   <style>
+    :root { --pub-h: 0px; }
     .pub-banner {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 1001;
+      z-index: 999;
       padding: 8px 20px;
       text-align: center;
       font-size: 13px;
@@ -27,6 +28,10 @@
       flex-wrap: wrap;
     }
     .pub-banner a { font-weight: 700; text-decoration: underline; }
+    /* Navbar se desplaza abajo según altura del banner */
+    .navbar { top: var(--pub-h) !important; }
+    /* El hero compensa el espacio del banner + navbar */
+    .hero { padding-top: calc(7rem + var(--pub-h)) !important; }
   </style>
 </head>
 <body>
@@ -433,15 +438,13 @@
   <script>
     (function() {
       var banner = document.querySelector('.pub-banner');
-      var navbar = document.querySelector('.navbar');
-      if (!banner || !navbar) return;
-      function adjustNav() {
+      if (!banner) return;
+      function setPubH() {
         var h = banner.offsetHeight;
-        navbar.style.top = h + 'px';
-        document.body.style.paddingTop = (h + navbar.offsetHeight) + 'px';
+        document.documentElement.style.setProperty('--pub-h', h + 'px');
       }
-      adjustNav();
-      window.addEventListener('resize', adjustNav);
+      setPubH();
+      window.addEventListener('resize', setPubH);
     })();
   </script>
   {% endif %}
