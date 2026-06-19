@@ -108,3 +108,4 @@ SSL: modo **Flexible** (Cloudflare → Railway).
 | 2026-06-19 | Puerto de desarrollo local cambiado de 5000 a 5001 |
 | 2026-06-19 | Fix banner publicidad: `position: fixed; z-index: 999` (debajo del navbar), CSS variable `--pub-h` ajusta navbar y hero automáticamente vía JS |
 | 2026-06-19 | Fix mobile overflow: `overflow-x: hidden` en html, hero `max-width: 100%`, blobs del hero contenidos |
+| 2026-06-19 | Fix inputs y botones mobile: `* { box-sizing: border-box }` global + `width: 100%` en inputs y social-links |
