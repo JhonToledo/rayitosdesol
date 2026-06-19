@@ -194,7 +194,7 @@ def contacto():
     try:
         resend.api_key = os.environ.get('RESEND_API_KEY', '')
         resend.Emails.send({
-            'from': 'Rayitos de Sol <onboarding@resend.dev>',
+            'from': 'Rayitos de Sol <noreply@rayitosdesolec.com>',
             'to': [c['contacto']['email_destino']],
             'subject': f'☀️ Nueva solicitud de {nombre} — Rayitos de Sol',
             'html': html
