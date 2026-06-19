@@ -1,0 +1,151 @@
+{% extends 'admin/base.html' %}
+{% set active = 'programas' %}
+
+{% block title %}Programas{% endblock %}
+{% block page_title %}🎒 Programas{% endblock %}
+{% block page_meta %}<a href="/#programas" target="_blank" class="btn btn-secondary btn-sm">Ver sección →</a>{% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('admin_programas') }}">
+  <div id="programasList">
+    {% for prog in c.programas %}
+    {% set pi = loop.index0 %}
+    {% set pn = loop.index %}
+    <div class="programa-editor">
+      <div class="prog-header">
+        <span class="prog-num">Programa {{ pn }}</span>
+        <button type="button" class="btn btn-danger btn-sm" onclick="removePrograma(this)">✕ Eliminar</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Icono (emoji)</label>
+          <input type="text" name="icon_{{ pi }}" value="{{ prog.icon }}" placeholder="👶"/>
+        </div>
+        <div class="form-group">
+          <label>Color de acento</label>
+          <input type="color" name="color_{{ pi }}" value="{{ prog.color }}"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre del programa</label>
+          <input type="text" name="nombre_{{ pi }}" value="{{ prog.nombre }}" placeholder="Beginners"/>
+        </div>
+        <div class="form-group">
+          <label>Rango de edad</label>
+          <input type="text" name="edad_{{ pi }}" value="{{ prog.edad }}" placeholder="1 año y medio – 2 años"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea name="descripcion_{{ pi }}" rows="2">{{ prog.descripcion }}</textarea>
+      </div>
+      <div class="form-group">
+        <label>Puntos clave (bullets)</label>
+        <div class="bullets-list">
+          {% for bullet in prog.bullets %}
+          {% set bi = loop.index0 %}
+          <div class="bullet-item">
+            <input type="text" name="bullet_{{ pi }}_{{ bi }}" value="{{ bullet }}" placeholder="Punto clave..."/>
+            <button type="button" class="btn-remove-bullet" onclick="this.parentElement.remove()">✕</button>
+          </div>
+          {% endfor %}
+          {% for bj in range(prog.bullets|length, 5) %}
+          <div class="bullet-item" style="display:none" data-empty>
+            <input type="text" name="bullet_{{ pi }}_{{ bj }}" value="" placeholder="Punto clave..."/>
+            <button type="button" class="btn-remove-bullet" onclick="this.parentElement.remove()">✕</button>
+          </div>
+          {% endfor %}
+        </div>
+        <button type="button" class="btn-add-bullet" onclick="addBullet(this)">+ Agregar punto</button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <button type="button" class="btn-add-card" id="addPrograma">+ Agregar programa</button>
+
+  <div class="form-actions" style="margin-top: 20px;">
+    <button type="submit" class="btn btn-primary">💾 Guardar todos los programas</button>
+    <a href="/#programas" target="_blank" class="btn btn-secondary">👁️ Ver resultado</a>
+  </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  let progCount = {{ c.programas|length }};
+
+  function addBullet(btn) {
+    const list = btn.previousElementSibling;
+    const hidden = list.querySelector('[data-empty]');
+    if (hidden) {
+      hidden.style.display = 'flex';
+      hidden.removeAttribute('data-empty');
+    }
+  }
+
+  function removePrograma(btn) {
+    if (document.querySelectorAll('.programa-editor').length <= 1) return;
+    btn.closest('.programa-editor').remove();
+    renumberProgramas();
+  }
+
+  function renumberProgramas() {
+    document.querySelectorAll('.programa-editor').forEach((card, i) => {
+      card.querySelector('.prog-num').textContent = `Programa ${i + 1}`;
+      card.querySelectorAll('input[name], textarea[name]').forEach(el => {
+        el.name = el.name.replace(/^(\w+)_\d+(.*)$/, (_, prefix, suffix) => `${prefix}_${i}${suffix}`);
+      });
+    });
+    progCount = document.querySelectorAll('.programa-editor').length;
+  }
+
+  document.getElementById('addPrograma').addEventListener('click', () => {
+    const i = progCount;
+    const bullets = [0, 1, 2].map(j => `
+      <div class="bullet-item">
+        <input type="text" name="bullet_${i}_${j}" placeholder="Punto clave..."/>
+        <button type="button" class="btn-remove-bullet" onclick="this.parentElement.remove()">✕</button>
+      </div>`).join('');
+    const tpl = `
+      <div class="programa-editor">
+        <div class="prog-header">
+          <span class="prog-num">Programa ${i + 1}</span>
+          <button type="button" class="btn btn-danger btn-sm" onclick="removePrograma(this)">✕ Eliminar</button>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Icono (emoji)</label>
+            <input type="text" name="icon_${i}" placeholder="🎓"/>
+          </div>
+          <div class="form-group">
+            <label>Color de acento</label>
+            <input type="color" name="color_${i}" value="#6B2FA0"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre del programa</label>
+            <input type="text" name="nombre_${i}" placeholder="Nuevo programa"/>
+          </div>
+          <div class="form-group">
+            <label>Rango de edad</label>
+            <input type="text" name="edad_${i}" placeholder="Edad..."/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea name="descripcion_${i}" rows="2" placeholder="Descripción..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Puntos clave (bullets)</label>
+          <div class="bullets-list">${bullets}</div>
+          <button type="button" class="btn-add-bullet" onclick="addBullet(this)">+ Agregar punto</button>
+        </div>
+      </div>`;
+    document.getElementById('programasList').insertAdjacentHTML('beforeend', tpl);
+    progCount++;
+  });
+</script>
+{% endblock %}

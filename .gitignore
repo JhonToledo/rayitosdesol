@@ -1,0 +1,25 @@
+# Credenciales y contenido editable
+content.json
+
+# Uploads de usuarios
+static/img/uploads/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+.venv/
+
+# PyCharm
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+cookies.txt
+page.html

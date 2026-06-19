@@ -1,0 +1,93 @@
+{% extends 'admin/base.html' %}
+{% set active = 'dashboard' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block page_meta %}Bienvenido al panel de administración{% endblock %}
+
+{% block content %}
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon">📸</div>
+    <div class="stat-info">
+      <div class="stat-num">{{ c.galeria|length }}</div>
+      <div class="stat-label">Fotos en galería</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">🎒</div>
+    <div class="stat-info">
+      <div class="stat-num">{{ c.programas|length }}</div>
+      <div class="stat-label">Programas activos</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">⭐</div>
+    <div class="stat-info">
+      <div class="stat-num">{{ c.servicios|length }}</div>
+      <div class="stat-label">Servicios</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">📢</div>
+    <div class="stat-info">
+      <div class="stat-num">{{ 'Activa' if c.publicidad.activa else 'Inactiva' }}</div>
+      <div class="stat-label">Publicidad</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">⚡ Acceso rápido a secciones</div>
+  <div class="quick-links">
+    <a href="{{ url_for('admin_hero') }}" class="quick-link">
+      <span class="ql-icon">✨</span>
+      Hero / Portada
+    </a>
+    <a href="{{ url_for('admin_precios') }}" class="quick-link">
+      <span class="ql-icon">💰</span>
+      Precios
+    </a>
+    <a href="{{ url_for('admin_nosotros') }}" class="quick-link">
+      <span class="ql-icon">🏫</span>
+      Nosotros
+    </a>
+    <a href="{{ url_for('admin_programas') }}" class="quick-link">
+      <span class="ql-icon">🎒</span>
+      Programas
+    </a>
+    <a href="{{ url_for('admin_servicios') }}" class="quick-link">
+      <span class="ql-icon">⭐</span>
+      Servicios
+    </a>
+    <a href="{{ url_for('admin_galeria') }}" class="quick-link">
+      <span class="ql-icon">📸</span>
+      Galería
+    </a>
+    <a href="{{ url_for('admin_publicidad') }}" class="quick-link">
+      <span class="ql-icon">📢</span>
+      Publicidad
+    </a>
+    <a href="{{ url_for('admin_contacto') }}" class="quick-link">
+      <span class="ql-icon">📞</span>
+      Contacto
+    </a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">📋 Información actual del sitio</div>
+  <div class="form-row">
+    <div>
+      <p style="font-size:13px; color:var(--gray-600); margin-bottom:6px;"><strong>Precio matrícula:</strong> {{ c.precios.matricula }}</p>
+      <p style="font-size:13px; color:var(--gray-600); margin-bottom:6px;"><strong>Mensualidad:</strong> {{ c.precios.mensualidad }}</p>
+      <p style="font-size:13px; color:var(--gray-600); margin-bottom:6px;"><strong>Inicio de clases:</strong> {{ c.precios.inicio }}</p>
+    </div>
+    <div>
+      <p style="font-size:13px; color:var(--gray-600); margin-bottom:6px;"><strong>Teléfono:</strong> {{ c.contacto.telefono }}</p>
+      <p style="font-size:13px; color:var(--gray-600); margin-bottom:6px;"><strong>Sede Matriz:</strong> {{ c.contacto.sede_matriz }}</p>
+      <p style="font-size:13px; color:var(--gray-600); margin-bottom:6px;"><strong>Sede Milagro:</strong> {{ c.contacto.sede_milagro }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

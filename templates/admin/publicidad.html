@@ -1,0 +1,90 @@
+{% extends 'admin/base.html' %}
+{% set active = 'publicidad' %}
+
+{% block title %}Publicidad{% endblock %}
+{% block page_title %}📢 Publicidad / Anuncios{% endblock %}
+{% block page_meta %}<a href="/" target="_blank" class="btn btn-secondary btn-sm">Ver sitio →</a>{% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('admin_publicidad') }}" id="pubForm">
+  <div class="card">
+    <div class="card-title">🔔 Banner de anuncio</div>
+    <p style="font-size:13px; color:var(--gray-400); margin-bottom:18px;">
+      Aparece como una barra visible en la parte superior del sitio web. Útil para anunciar ofertas, eventos o avisos importantes.
+    </p>
+
+    <div class="toggle-wrap">
+      <label class="toggle">
+        <input type="checkbox" name="activa" id="toggleActiva" {% if c.publicidad.activa %}checked{% endif %} onchange="updatePreview()"/>
+        <span class="toggle-slider"></span>
+      </label>
+      <span class="toggle-label" id="toggleLabel">{{ 'Banner ACTIVO — visible en el sitio' if c.publicidad.activa else 'Banner INACTIVO — no se muestra' }}</span>
+    </div>
+
+    <div class="form-group">
+      <label>Título / texto corto en negrita</label>
+      <input type="text" name="titulo" id="f-titulo" value="{{ c.publicidad.titulo }}" placeholder="¡Oferta especial!" oninput="updatePreview()"/>
+    </div>
+
+    <div class="form-group">
+      <label>Texto del anuncio</label>
+      <input type="text" name="texto" id="f-texto" value="{{ c.publicidad.texto }}" placeholder="Inscríbete ahora y obtén un descuento..." oninput="updatePreview()"/>
+    </div>
+
+    <div class="form-group">
+      <label>Link (opcional) — al hacer clic en "Ver más"</label>
+      <input type="url" name="link" id="f-link" value="{{ c.publicidad.link }}" placeholder="https://wa.me/..."/>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Color de fondo</label>
+        <input type="color" name="color_fondo" id="f-color-fondo" value="{{ c.publicidad.color_fondo }}" oninput="updatePreview()"/>
+      </div>
+      <div class="form-group">
+        <label>Color del texto</label>
+        <input type="color" name="color_texto" id="f-color-texto" value="{{ c.publicidad.color_texto }}" oninput="updatePreview()"/>
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="card-title" style="margin-top:8px;">👁️ Vista previa</div>
+    <div class="preview-box" id="pubPreview"
+         style="background: {{ c.publicidad.color_fondo }}; color: {{ c.publicidad.color_texto }};">
+      <span>📢</span>
+      <div>
+        <strong id="prev-titulo">{{ c.publicidad.titulo }}</strong>
+        — <span id="prev-texto">{{ c.publicidad.texto }}</span>
+        <span id="prev-link-wrap">
+          {% if c.publicidad.link %}· <a href="#" style="color: {{ c.publicidad.color_texto }}; font-weight:700;">Ver más →</a>{% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">💾 Guardar publicidad</button>
+    <a href="/" target="_blank" class="btn btn-secondary">👁️ Ver en el sitio</a>
+  </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function updatePreview() {
+    const titulo = document.getElementById('f-titulo').value;
+    const texto  = document.getElementById('f-texto').value;
+    const fondo  = document.getElementById('f-color-fondo').value;
+    const color  = document.getElementById('f-color-texto').value;
+    const activa = document.getElementById('toggleActiva').checked;
+
+    document.getElementById('prev-titulo').textContent = titulo;
+    document.getElementById('prev-texto').textContent  = texto;
+    document.getElementById('pubPreview').style.background = fondo;
+    document.getElementById('pubPreview').style.color = color;
+    document.getElementById('toggleLabel').textContent = activa
+      ? 'Banner ACTIVO — visible en el sitio'
+      : 'Banner INACTIVO — no se muestra';
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'admin/base.html' %}
+{% set active = 'precios' %}
+
+{% block title %}Precios / Banner{% endblock %}
+{% block page_title %}💰 Precios / Banner{% endblock %}
+{% block page_meta %}<a href="/" target="_blank" class="btn btn-secondary btn-sm">Ver sitio →</a>{% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('admin_precios') }}">
+  <div class="card">
+    <div class="card-title">🏷️ Banner de precios (aparece justo debajo del hero)</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Matrícula</label>
+        <input type="text" name="matricula" value="{{ c.precios.matricula }}"/>
+        <span class="form-help">Ejemplo: $50</span>
+      </div>
+      <div class="form-group">
+        <label>Mensualidad</label>
+        <input type="text" name="mensualidad" value="{{ c.precios.mensualidad }}"/>
+        <span class="form-help">Ejemplo: $150</span>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Horario</label>
+        <input type="text" name="horario" value="{{ c.precios.horario }}"/>
+        <span class="form-help">Ejemplo: 8am – 5pm</span>
+      </div>
+      <div class="form-group">
+        <label>Inicio de clases</label>
+        <input type="text" name="inicio" value="{{ c.precios.inicio }}"/>
+        <span class="form-help">Ejemplo: 4 Mayo 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">💾 Guardar cambios</button>
+    <a href="/" target="_blank" class="btn btn-secondary">👁️ Ver resultado</a>
+  </div>
+</form>
+{% endblock %}

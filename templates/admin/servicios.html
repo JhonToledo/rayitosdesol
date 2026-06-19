@@ -1,0 +1,92 @@
+{% extends 'admin/base.html' %}
+{% set active = 'servicios' %}
+
+{% block title %}Servicios{% endblock %}
+{% block page_title %}⭐ Servicios{% endblock %}
+{% block page_meta %}<a href="/#servicios" target="_blank" class="btn btn-secondary btn-sm">Ver sección →</a>{% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('admin_servicios') }}">
+  <div id="serviciosList">
+    {% for serv in c.servicios %}
+    {% set si = loop.index0 %}
+    <div class="programa-editor">
+      <div class="prog-header">
+        <span class="prog-num">Servicio {{ loop.index }}</span>
+        <button type="button" class="btn btn-danger btn-sm" onclick="removeServicio(this)">✕ Eliminar</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Icono (emoji)</label>
+          <input type="text" name="icon_{{ si }}" value="{{ serv.icon }}" placeholder="🧠"/>
+        </div>
+        <div class="form-group">
+          <label>Nombre del servicio</label>
+          <input type="text" name="nombre_{{ si }}" value="{{ serv.nombre }}" placeholder="Nombre..."/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea name="descripcion_{{ si }}" rows="2">{{ serv.descripcion }}</textarea>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <button type="button" class="btn-add-card" id="addServicio">+ Agregar servicio</button>
+
+  <div class="form-actions" style="margin-top: 20px;">
+    <button type="submit" class="btn btn-primary">💾 Guardar todos los servicios</button>
+    <a href="/#servicios" target="_blank" class="btn btn-secondary">👁️ Ver resultado</a>
+  </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  let servCount = {{ c.servicios|length }};
+
+  function removeServicio(btn) {
+    if (document.querySelectorAll('#serviciosList .programa-editor').length <= 1) return;
+    btn.closest('.programa-editor').remove();
+    renumber();
+  }
+
+  function renumber() {
+    document.querySelectorAll('#serviciosList .programa-editor').forEach((card, i) => {
+      card.querySelector('.prog-num').textContent = `Servicio ${i + 1}`;
+      card.querySelectorAll('input[name], textarea[name]').forEach(el => {
+        el.name = el.name.replace(/_\d+$/, `_${i}`);
+      });
+    });
+    servCount = document.querySelectorAll('#serviciosList .programa-editor').length;
+  }
+
+  document.getElementById('addServicio').addEventListener('click', () => {
+    const i = servCount;
+    const tpl = `
+      <div class="programa-editor">
+        <div class="prog-header">
+          <span class="prog-num">Servicio ${i + 1}</span>
+          <button type="button" class="btn btn-danger btn-sm" onclick="removeServicio(this)">✕ Eliminar</button>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Icono (emoji)</label>
+            <input type="text" name="icon_${i}" placeholder="⭐"/>
+          </div>
+          <div class="form-group">
+            <label>Nombre del servicio</label>
+            <input type="text" name="nombre_${i}" placeholder="Nombre..."/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea name="descripcion_${i}" rows="2" placeholder="Descripción del servicio..."></textarea>
+        </div>
+      </div>`;
+    document.getElementById('serviciosList').insertAdjacentHTML('beforeend', tpl);
+    servCount++;
+  });
+</script>
+{% endblock %}

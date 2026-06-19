@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Admin{% endblock %} — Rayitos de Sol</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}"/>
+  {% block head %}{% endblock %}
+</head>
+<body class="admin-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo"/>
+      <div>
+        <span>Panel Admin</span>
+        <span class="logo-sub">☀️ Rayitos de Sol</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="{{ url_for('admin_dashboard') }}" class="nav-item {% if active == 'dashboard' %}active{% endif %}">
+        <span class="nav-icon">🏠</span> Dashboard
+      </a>
+
+      <div class="nav-section">Contenido del sitio</div>
+
+      <a href="{{ url_for('admin_hero') }}" class="nav-item {% if active == 'hero' %}active{% endif %}">
+        <span class="nav-icon">✨</span> Hero / Portada
+      </a>
+      <a href="{{ url_for('admin_precios') }}" class="nav-item {% if active == 'precios' %}active{% endif %}">
+        <span class="nav-icon">💰</span> Precios / Banner
+      </a>
+      <a href="{{ url_for('admin_nosotros') }}" class="nav-item {% if active == 'nosotros' %}active{% endif %}">
+        <span class="nav-icon">🏫</span> Nosotros
+      </a>
+      <a href="{{ url_for('admin_programas') }}" class="nav-item {% if active == 'programas' %}active{% endif %}">
+        <span class="nav-icon">🎒</span> Programas
+      </a>
+      <a href="{{ url_for('admin_servicios') }}" class="nav-item {% if active == 'servicios' %}active{% endif %}">
+        <span class="nav-icon">⭐</span> Servicios
+      </a>
+      <a href="{{ url_for('admin_galeria') }}" class="nav-item {% if active == 'galeria' %}active{% endif %}">
+        <span class="nav-icon">📸</span> Galería
+      </a>
+      <a href="{{ url_for('admin_publicidad') }}" class="nav-item {% if active == 'publicidad' %}active{% endif %}">
+        <span class="nav-icon">📢</span> Publicidad
+      </a>
+      <a href="{{ url_for('admin_contacto') }}" class="nav-item {% if active == 'contacto' %}active{% endif %}">
+        <span class="nav-icon">📞</span> Contacto / Email
+      </a>
+
+      <div class="nav-section">Cuenta</div>
+
+      <a href="{{ url_for('admin_seguridad') }}" class="nav-item {% if active == 'seguridad' %}active{% endif %}">
+        <span class="nav-icon">🔐</span> Contraseña
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a href="/" target="_blank" class="nav-item">
+        <span class="nav-icon">👁️</span> Ver sitio web
+      </a>
+      <a href="{{ url_for('admin_logout') }}" class="nav-item logout">
+        <span class="nav-icon">🚪</span> Cerrar sesión
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <div class="content-header">
+      <div>
+        <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+      </div>
+      <div class="header-meta">{% block page_meta %}{% endblock %}</div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="content-body">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

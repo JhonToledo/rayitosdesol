@@ -1,0 +1,85 @@
+{% extends 'admin/base.html' %}
+{% set active = 'contacto' %}
+
+{% block title %}Contacto / Email{% endblock %}
+{% block page_title %}📞 Contacto / Email{% endblock %}
+{% block page_meta %}<a href="/#contacto" target="_blank" class="btn btn-secondary btn-sm">Ver sección →</a>{% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('admin_contacto') }}">
+  <div class="card">
+    <div class="card-title">📍 Sedes y datos de contacto</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Sede Matriz — dirección</label>
+        <input type="text" name="sede_matriz" value="{{ c.contacto.sede_matriz }}" placeholder="Km 1, Vía Naranjito"/>
+      </div>
+      <div class="form-group">
+        <label>Sede Milagro — dirección</label>
+        <input type="text" name="sede_milagro" value="{{ c.contacto.sede_milagro }}" placeholder="Amazonas y PJ Montero"/>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Teléfono / WhatsApp</label>
+        <input type="text" name="telefono" value="{{ c.contacto.telefono }}" placeholder="0985974060"/>
+      </div>
+      <div class="form-group">
+        <label>Horario de atención</label>
+        <input type="text" name="horario" value="{{ c.contacto.horario }}" placeholder="Lunes a Viernes: 8:00 a.m. – 5:00 p.m."/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Texto de inicio de clases</label>
+      <input type="text" name="inicio_clases" value="{{ c.contacto.inicio_clases }}" placeholder="4 de Mayo 2026 · ¡Cupos limitados!"/>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔗 Redes sociales y WhatsApp</div>
+
+    <div class="form-group">
+      <label>Link de Instagram</label>
+      <input type="url" name="instagram" value="{{ c.contacto.instagram }}" placeholder="https://www.instagram.com/..."/>
+    </div>
+
+    <div class="form-group">
+      <label>Link de WhatsApp</label>
+      <input type="url" name="whatsapp" value="{{ c.contacto.whatsapp }}" placeholder="https://wa.me/..."/>
+      <span class="form-help">Puede ser un link directo (wa.me/593...) o un link de grupo/canal</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📧 Configuración de correo</div>
+    <p style="font-size:13px; color:var(--gray-400); margin-bottom:16px;">
+      Cuando alguien envía el formulario de contacto, el mensaje llega a este correo.
+    </p>
+
+    <div class="form-group">
+      <label>Correo destinatario (recibe los formularios)</label>
+      <input type="email" name="email_destino" value="{{ c.contacto.email_destino }}" placeholder="tu@gmail.com"/>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Correo remitente (Gmail que envía)</label>
+        <input type="email" name="email_remitente" value="{{ c.email.email_remitente }}" placeholder="tu@gmail.com"/>
+      </div>
+      <div class="form-group">
+        <label>Contraseña de aplicación Gmail</label>
+        <input type="text" name="email_password" value="{{ c.email.email_password }}" placeholder="xxxx xxxx xxxx xxxx"/>
+        <span class="form-help">Contraseña de app de Google (no la contraseña de Gmail normal)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">💾 Guardar contacto</button>
+    <a href="/#contacto" target="_blank" class="btn btn-secondary">👁️ Ver resultado</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'admin/base.html' %}
+{% set active = 'galeria' %}
+
+{% block title %}Galería{% endblock %}
+{% block page_title %}📸 Galería{% endblock %}
+{% block page_meta %}<a href="/#galeria" target="_blank" class="btn btn-secondary btn-sm">Ver sección →</a>{% endblock %}
+
+{% block content %}
+<!-- SUBIR FOTO -->
+<div class="card">
+  <div class="card-title">⬆️ Subir nueva foto</div>
+  <form method="POST" action="{{ url_for('admin_galeria') }}" enctype="multipart/form-data" id="uploadForm">
+    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fotoInput').click()">
+      <input type="file" name="foto" id="fotoInput" accept="image/*"/>
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">Haz clic para seleccionar una foto</div>
+      <div class="upload-sub">JPG, PNG, WEBP · Máximo 16 MB</div>
+      <div id="uploadFileName" style="margin-top:10px; font-size:13px; color:var(--purple); font-weight:600; display:none;"></div>
+    </div>
+    <div class="form-actions" style="margin-top:0; border:none; padding:0;">
+      <button type="submit" class="btn btn-primary" id="uploadBtn" disabled>⬆️ Subir foto</button>
+    </div>
+  </form>
+</div>
+
+<!-- FOTOS ACTUALES -->
+<div class="card">
+  <div class="card-title">🖼️ Fotos en la galería</div>
+  <p class="gal-count">{{ c.galeria|length }} foto{{ 's' if c.galeria|length != 1 else '' }} en total</p>
+
+  {% if c.galeria %}
+  <div class="galeria-admin-grid">
+    {% for foto in c.galeria %}
+    <div class="gal-admin-item">
+      <img src="{{ url_for('static', filename=foto) }}" alt="Foto galería" loading="lazy"/>
+      <div class="gal-admin-overlay">
+        <form method="POST" action="{{ url_for('admin_galeria_delete') }}" onsubmit="return confirm('¿Eliminar esta foto?')">
+          <input type="hidden" name="path" value="{{ foto }}"/>
+          <button type="submit" class="btn-delete-photo">🗑️ Eliminar</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p style="color:var(--gray-400); font-size:14px; text-align:center; padding:32px;">No hay fotos en la galería. ¡Sube la primera!</p>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const input = document.getElementById('fotoInput');
+  const zone  = document.getElementById('uploadZone');
+  const btn   = document.getElementById('uploadBtn');
+  const label = document.getElementById('uploadFileName');
+
+  input.addEventListener('change', () => {
+    if (input.files.length > 0) {
+      label.textContent = '📎 ' + input.files[0].name;
+      label.style.display = 'block';
+      btn.disabled = false;
+      zone.style.borderColor = 'var(--purple)';
+    }
+  });
+
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    if (e.dataTransfer.files.length > 0) {
+      input.files = e.dataTransfer.files;
+      input.dispatchEvent(new Event('change'));
+    }
+  });
+</script>
+{% endblock %}

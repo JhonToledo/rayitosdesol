@@ -1,0 +1,58 @@
+{% extends 'admin/base.html' %}
+{% set active = 'hero' %}
+
+{% block title %}Hero / Portada{% endblock %}
+{% block page_title %}✨ Hero / Portada{% endblock %}
+{% block page_meta %}<a href="/" target="_blank" class="btn btn-secondary btn-sm">Ver sitio →</a>{% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('admin_hero') }}">
+  <div class="card">
+    <div class="card-title">🏷️ Texto principal</div>
+
+    <div class="form-group">
+      <label>Badge (texto de anuncio destacado)</label>
+      <input type="text" name="badge" value="{{ c.hero.badge }}"/>
+      <span class="form-help">Aparece encima del título principal. Ejemplo: "🎒 Matrículas Abiertas · Periodo 2026–2027"</span>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Título línea 1</label>
+        <input type="text" name="title_line1" value="{{ c.hero.title_line1 }}"/>
+      </div>
+      <div class="form-group">
+        <label>Título resaltado (línea 2)</label>
+        <input type="text" name="title_highlight" value="{{ c.hero.title_highlight }}"/>
+        <span class="form-help">Esta parte aparece en color morado</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Subtítulo / descripción</label>
+      <textarea name="subtitle" rows="3">{{ c.hero.subtitle }}</textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 Estadísticas (3 números destacados)</div>
+    {% for i, stat in [(0, c.hero.stats[0]), (1, c.hero.stats[1]), (2, c.hero.stats[2])] %}
+    <div class="form-row" style="margin-bottom: 10px;">
+      <div class="form-group" style="margin-bottom:0">
+        <label>Número / Dato {{ i + 1 }}</label>
+        <input type="text" name="stat_num_{{ i }}" value="{{ stat.num }}"/>
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>Etiqueta {{ i + 1 }}</label>
+        <input type="text" name="stat_label_{{ i }}" value="{{ stat.label }}"/>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">💾 Guardar cambios</button>
+    <a href="/" target="_blank" class="btn btn-secondary">👁️ Ver resultado</a>
+  </div>
+</form>
+{% endblock %}
