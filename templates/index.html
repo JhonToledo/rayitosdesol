@@ -13,24 +13,7 @@
   {% endif %}
   <style>
     :root { --pub-h: 0px; }
-    .pub-banner {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 999;
-      padding: 8px 20px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .pub-banner a { font-weight: 700; text-decoration: underline; }
-    /* Navbar se desplaza abajo según altura del banner */
     .navbar { top: var(--pub-h) !important; }
-    /* El hero compensa el espacio del banner + navbar */
     .hero { padding-top: calc(7rem + var(--pub-h)) !important; }
   </style>
 </head>
@@ -38,20 +21,25 @@
 
   <!-- PUBLICIDAD -->
   {% if c.publicidad.activa %}
-  <div class="pub-banner"
-       style="background:{{ c.publicidad.color_fondo }};color:{{ c.publicidad.color_texto }}">
-    <span class="pub-icon">🎉</span>
-    <span class="pub-text">
-      <strong>{{ c.publicidad.titulo }}</strong>
-      <span class="pub-sep">·</span>
-      {{ c.publicidad.texto }}
-    </span>
-    {% if c.publicidad.link %}
-    <a href="{{ c.publicidad.link }}" target="_blank" class="pub-cta"
-       style="border-color:{{ c.publicidad.color_texto }};color:{{ c.publicidad.color_texto }}">
-      Ver más →
-    </a>
-    {% endif %}
+  <div class="pub-banner" id="pubBanner"
+       style="--pub-bg:{{ c.publicidad.color_fondo }};--pub-txt:{{ c.publicidad.color_texto }};background:{{ c.publicidad.color_fondo }}">
+    <div class="pub-shimmer"></div>
+    <div class="pub-stars">
+      <span class="pstar s1">✦</span>
+      <span class="pstar s2">✦</span>
+      <span class="pstar s3">✦</span>
+    </div>
+    <div class="pub-inner">
+      <span class="pub-badge" style="color:{{ c.publicidad.color_fondo }}">{{ c.publicidad.titulo }}</span>
+      <span class="pub-msg" style="color:{{ c.publicidad.color_texto }}">{{ c.publicidad.texto }}</span>
+      {% if c.publicidad.link %}
+      <a href="{{ c.publicidad.link }}" target="_blank" class="pub-cta"
+         style="color:{{ c.publicidad.color_fondo }};background:{{ c.publicidad.color_texto }}">
+        Ver oferta →
+      </a>
+      {% endif %}
+    </div>
+    <button class="pub-close" onclick="document.getElementById('pubBanner').style.display='none';document.documentElement.style.setProperty('--pub-h','0px')" style="color:{{ c.publicidad.color_texto }}">✕</button>
   </div>
   {% endif %}
 
