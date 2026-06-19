@@ -5,9 +5,7 @@ from functools import wraps
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import smtplib
+import resend
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'rayitos-sol-admin-2026-xK9mN2pQ7r')
@@ -194,22 +192,17 @@ def contacto():
 """
 
     try:
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = f"☀️ Nueva solicitud de {nombre} — Rayitos de Sol"
-        msg['From']    = c['email']['email_remitente']
-        msg['To']      = c['contacto']['email_destino']
-        msg.attach(MIMEText(html, 'html'))
-
-        with smtplib.SMTP(c['email']['smtp_server'], int(c['email']['smtp_port']), timeout=15) as server:
-            server.starttls()
-            email_pass = os.environ.get('EMAIL_PASSWORD') or c['email']['email_password']
-            server.login(c['email']['email_remitente'], email_pass)
-            server.sendmail(c['email']['email_remitente'], c['contacto']['email_destino'], msg.as_string())
-
+        resend.api_key = os.environ.get('RESEND_API_KEY', '')
+        resend.Emails.send({
+            'from': 'Rayitos de Sol <onboarding@resend.dev>',
+            'to': [c['contacto']['email_destino']],
+            'subject': f'☀️ Nueva solicitud de {nombre} — Rayitos de Sol',
+            'html': html
+        })
         return jsonify({'ok': True})
     except Exception as e:
         print(f"Error email: {e}")
-        return jsonify({'ok': False, 'error': str(e)}), 200
+        return jsonify({'ok': False, 'error': str(e)})
 
 
 # ── ADMIN: AUTH ──
