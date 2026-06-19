@@ -106,3 +106,4 @@ SSL: modo **Flexible** (Cloudflare → Railway).
 | 2026-06-19 | Fix precio CTA: botón centrado en mobile |
 | 2026-06-19 | DNS Cloudflare configurado: CNAME @ → Railway, CNAME www → dominio raíz |
 | 2026-06-19 | Puerto de desarrollo local cambiado de 5000 a 5001 |
+| 2026-06-19 | Fix banner publicidad: ahora `position: fixed; z-index: 1001` y JS baja el navbar dinámicamente según altura del banner |
