@@ -40,11 +40,17 @@
   {% if c.publicidad.activa %}
   <div class="pub-banner"
        style="background:{{ c.publicidad.color_fondo }};color:{{ c.publicidad.color_texto }}">
-    <span>📢</span>
-    <span><strong>{{ c.publicidad.titulo }}</strong> — {{ c.publicidad.texto }}</span>
+    <span class="pub-icon">🎉</span>
+    <span class="pub-text">
+      <strong>{{ c.publicidad.titulo }}</strong>
+      <span class="pub-sep">·</span>
+      {{ c.publicidad.texto }}
+    </span>
     {% if c.publicidad.link %}
-    <a href="{{ c.publicidad.link }}" target="_blank"
-       style="color:{{ c.publicidad.color_texto }}">Ver más →</a>
+    <a href="{{ c.publicidad.link }}" target="_blank" class="pub-cta"
+       style="border-color:{{ c.publicidad.color_texto }};color:{{ c.publicidad.color_texto }}">
+      Ver más →
+    </a>
     {% endif %}
   </div>
   {% endif %}
@@ -368,20 +374,26 @@
           </div>
           <div class="form-group">
             <label>Nivel de interés</label>
-            <select id="f-nivel">
-              <option value="">Selecciona el nivel...</option>
-              {% for prog in c.programas %}
-              <option>{{ prog.nombre }}{% if prog.edad %} ({{ prog.edad }}){% endif %}</option>
-              {% endfor %}
-            </select>
+            <div class="select-wrap">
+              <select id="f-nivel">
+                <option value="">Selecciona el nivel...</option>
+                {% for prog in c.programas %}
+                <option>{{ prog.icon }} {{ prog.nombre }}{% if prog.edad %} — {{ prog.edad }}{% endif %}</option>
+                {% endfor %}
+              </select>
+              <span class="select-arrow">▾</span>
+            </div>
           </div>
           <div class="form-group">
             <label>Sede de interés</label>
-            <select id="f-sede">
-              <option value="">Selecciona la sede...</option>
-              <option>Sede Matriz – {{ c.contacto.sede_matriz }}</option>
-              <option>Sede Milagro – {{ c.contacto.sede_milagro }}</option>
-            </select>
+            <div class="select-wrap">
+              <select id="f-sede">
+                <option value="">Selecciona la sede...</option>
+                <option>📍 Sede Matriz – {{ c.contacto.sede_matriz }}</option>
+                <option>📍 Sede Milagro – {{ c.contacto.sede_milagro }}</option>
+              </select>
+              <span class="select-arrow">▾</span>
+            </div>
           </div>
           <div class="form-group">
             <label>Mensaje (opcional)</label>
