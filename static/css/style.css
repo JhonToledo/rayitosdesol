@@ -74,7 +74,7 @@ body { font-family: var(--font-body); color: var(--text); background: var(--ligh
 .nav-toggle { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--purple); }
 
 /* ── HERO ── */
-.hero { min-height: 100vh; display: flex; align-items: center; gap: 2rem; padding: 7rem 4rem 4rem; max-width: 1280px; width: 100%; margin: 0 auto; position: relative; overflow: hidden; }
+.hero { min-height: 100vh; display: flex; align-items: center; gap: 2rem; padding: 7rem 4rem 4rem; max-width: 1280px; width: 100%; margin: 0 auto; position: relative; }
 .hero-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
 .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .3; animation: blobFloat 8s ease-in-out infinite; }
 .blob1 { width: 500px; height: 500px; background: var(--purple-light); top: -100px; right: -100px; }
