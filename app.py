@@ -37,13 +37,27 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXT
 
 def load_content():
+    default_path = os.path.join(BASE_DIR, 'content_default.json')
+    with open(default_path, 'r', encoding='utf-8') as f:
+        defaults = json.load(f)
+
     if not os.path.exists(CONTENT_FILE):
-        default = os.path.join(BASE_DIR, 'content_default.json')
-        with open(default, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        save_content(data)
+        save_content(defaults)
+        return defaults
+
     with open(CONTENT_FILE, 'r', encoding='utf-8') as f:
-        return json.load(f)
+        data = json.load(f)
+
+    # Agrega keys nuevas de content_default que falten (migraciones)
+    changed = False
+    for key, val in defaults.items():
+        if key not in data:
+            data[key] = val
+            changed = True
+    if changed:
+        save_content(data)
+
+    return data
 
 def save_content(data):
     with open(CONTENT_FILE, 'w', encoding='utf-8') as f:
