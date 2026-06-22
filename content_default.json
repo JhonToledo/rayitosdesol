@@ -72,6 +72,12 @@
     {"icon": "🤸", "nombre": "Motricidad fina y gruesa", "descripcion": "Actividades físicas y manuales que desarrollan la coordinación y el control corporal."},
     {"icon": "💛", "nombre": "Inteligencia emocional", "descripcion": "Herramientas para que los niños identifiquen y gestionen sus emociones desde pequeños."}
   ],
+  "valores": [
+    {"icon": "💛", "titulo": "Amor y dedicación", "texto": "Cada interacción está guiada por el afecto genuino y el respeto a cada niño."},
+    {"icon": "🎯", "titulo": "Habilidades clave", "texto": "Desarrollamos las habilidades que tu hijo necesita en cada etapa de su crecimiento."},
+    {"icon": "🤝", "titulo": "Alianza con la familia", "texto": "Trabajamos en equipo con los padres porque la educación es una responsabilidad compartida."},
+    {"icon": "🌈", "titulo": "Inclusión y diversidad", "texto": "Celebramos las diferencias con nuestra Aula de la Diversidad, donde todos pertenecen."}
+  ],
   "galeria": [
     "img/galeria/best/foto_04_03.jpg",
     "img/galeria/best/foto_06_02.jpg",

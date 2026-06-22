@@ -278,6 +278,48 @@
       onSave(data) { applyPubBanner(data); }
     },
 
+    /* ── VALORES ── */
+    valores: {
+      label: '💛 ¿Por qué elegirnos?',
+      selector: '.valores',
+      renderForm(d) {
+        return d.map((v, i) => `
+          <div class="d-card">
+            <div class="d-card-head" onclick="toggleDCard(this)">
+              <span class="d-card-label">${esc(v.icon)} ${esc(v.titulo)}</span>
+              <span class="d-card-toggle">▼</span>
+            </div>
+            <div class="d-card-body ${i===0?'open':''}">
+              <div class="two-col" style="margin-bottom:8px;">
+                <div class="df" style="margin:0"><label>Icono</label>
+                  <input type="text" data-vi="${i}" data-vk="icon" value="${esc(v.icon)}"/></div>
+                <div class="df" style="margin:0"><label>Título</label>
+                  <input type="text" data-vi="${i}" data-vk="titulo" value="${esc(v.titulo)}"/></div>
+              </div>
+              <div class="df"><label>Texto</label>
+                <textarea data-vi="${i}" data-vk="texto" rows="2">${esc(v.texto)}</textarea></div>
+            </div>
+          </div>`).join('');
+      },
+      onInput() {},
+      collectData() {
+        const cards = [];
+        drawerEl.querySelectorAll('[data-vi]').forEach(el => {
+          const i = parseInt(el.dataset.vi);
+          if (!cards[i]) cards[i] = {};
+          cards[i][el.dataset.vk] = el.value;
+        });
+        return cards;
+      }
+    },
+
+    /* ── SEDES ── */
+    sedes: {
+      label: '📍 Nuestras Sedes',
+      selector: '.sedes',
+      _openAs: 'contacto'
+    },
+
     /* ── CONTACTO ── */
     contacto: {
       label: '📞 Contacto',
@@ -477,7 +519,7 @@
       btn.className = 'sec-edit-btn';
       btn.type = 'button';
       btn.innerHTML = `✏️ Editar sección`;
-      btn.addEventListener('click', e => { e.stopPropagation(); openDrawer(key); });
+      btn.addEventListener('click', e => { e.stopPropagation(); openDrawer(sec._openAs || key); });
       el.appendChild(btn);
     });
   }

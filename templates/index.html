@@ -227,26 +227,13 @@
       <h2 class="section-title light">Elegir Rayitos de Sol es elegir<br/>
         <span class="highlight-light">dónde tu hijo crecerá feliz</span></h2>
       <div class="valores-grid">
+        {% for v in c.valores %}
         <div class="valor-card">
-          <div class="valor-icon">💛</div>
-          <h3>Amor y dedicación</h3>
-          <p>Cada interacción está guiada por el afecto genuino y el respeto a cada niño.</p>
+          <div class="valor-icon">{{ v.icon }}</div>
+          <h3>{{ v.titulo }}</h3>
+          <p>{{ v.texto }}</p>
         </div>
-        <div class="valor-card">
-          <div class="valor-icon">🎯</div>
-          <h3>Habilidades clave</h3>
-          <p>Desarrollamos las habilidades que tu hijo necesita en cada etapa de su crecimiento.</p>
-        </div>
-        <div class="valor-card">
-          <div class="valor-icon">🤝</div>
-          <h3>Alianza con la familia</h3>
-          <p>Trabajamos en equipo con los padres porque la educación es una responsabilidad compartida.</p>
-        </div>
-        <div class="valor-card">
-          <div class="valor-icon">🌈</div>
-          <h3>Inclusión y diversidad</h3>
-          <p>Celebramos las diferencias con nuestra Aula de la Diversidad, donde todos pertenecen.</p>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </section>
@@ -275,7 +262,7 @@
   </section>
 
   <!-- SEDES -->
-  <section class="sedes">
+  <section class="sedes" id="sedes">
     <div class="container">
       <div class="section-tag">Dónde estamos</div>
       <h2 class="section-title">Nuestras <span class="highlight">sedes</span></h2>
