@@ -120,6 +120,11 @@ html.admin-mode .navbar { top: 48px !important; }
   pointer-events: all;
 }
 
+/* Hero: el botón baja para no quedar detrás del navbar fijo */
+#inicio .sec-edit-btn {
+  top: calc(var(--pub-h, 0px) + 80px);
+}
+
 /* ── OVERLAY & DRAWER ── */
 .editor-overlay {
   position: fixed;
