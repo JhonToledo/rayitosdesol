@@ -11,13 +11,24 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'rayitos-sol-admin-2026-xK9mN2pQ7r')
 
 BASE_DIR      = os.path.dirname(__file__)
-CONTENT_FILE  = os.path.join(BASE_DIR, 'content.json')
-UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'img', 'uploads')
 ALLOWED_EXT   = {'jpg', 'jpeg', 'png', 'gif', 'webp'}
 
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+# Si DATA_DIR está definido (Railway con volumen), usar disco persistente
+_DATA_DIR = os.environ.get('DATA_DIR', '')
+if _DATA_DIR:
+    CONTENT_FILE  = os.path.join(_DATA_DIR, 'content.json')
+    UPLOAD_FOLDER = os.path.join(_DATA_DIR, 'uploads')
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    # Symlink static/img/uploads → volumen persistente
+    _static_uploads = os.path.join(BASE_DIR, 'static', 'img', 'uploads')
+    if not os.path.exists(_static_uploads):
+        os.symlink(UPLOAD_FOLDER, _static_uploads)
+else:
+    CONTENT_FILE  = os.path.join(BASE_DIR, 'content.json')
+    UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'img', 'uploads')
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 
 # ── HELPERS ──
